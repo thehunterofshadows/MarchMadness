@@ -22,8 +22,8 @@ teams19[332,"Ranking"]=4
 topTeams<-teams19[teams19$Ranking!=0,]
 
 #Create corplot
-data<select(topTeams,-Ranking)
-myCor <- cor(data)
+myData<-select(topTeams,-c(Ranking,X,abbreviation,conference,name))
+myCor <- cor(myData)
 corrplot(myCor, order = "FPC", method = "color", type = "lower", 
          tl.cex = 0.8, tl.col = rgb(0, 0, 0))
 
