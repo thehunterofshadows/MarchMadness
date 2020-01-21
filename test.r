@@ -15,18 +15,30 @@ games19 %>% group_by(type) %>% tally()
 #View(teams19[grep("Michigan", teams19$X,ignore.case=TRUE),])
 teams19$Ranking=0
 teams19<- tibble::rowid_to_column(teams19,"ID")
-teams19[178,"Ranking"]=1
-teams19[81,"Ranking"]=2
-teams19[157,"Ranking"]=3
-teams19[332,"Ranking"]=4
+#teams19[178,"Ranking"]=1
+
+teams19[grep("Michigan-state", teams19$X,ignore.case=TRUE),"Ranking"]=1
+teams19[grep("DUKE", teams19$X,ignore.case=TRUE),"Ranking"]=2
+
+teams19[grep("VIRGINIA-TECH", teams19$X,ignore.case=TRUE),"Ranking"]=3
+teams19[grep("LOUISIANA-STATE", teams19$X,ignore.case=TRUE),"Ranking"]=3
+
+teams19[grep("CENTRAL-FLORIDA", teams19$X,ignore.case=TRUE),"Ranking"]=4
+teams19[grep("LIBERTY", teams19$X,ignore.case=TRUE),"Ranking"]=4
+teams19[teams19$X=="MARYLAND" ,"Ranking"]=4
+teams19[grep("MINNESOTA", teams19$X,ignore.case=TRUE),"Ranking"]=4
+
+
+#teams19[157,"Ranking"]=3
+#teams19[332,"Ranking"]=4
 topTeams<-teams19[teams19$Ranking!=0,]
 
 #Create corplot
-myData<-select(topTeams,-c(Ranking,X,abbreviation,conference,name))
+'myData<-select(topTeams,-c(Ranking,X,abbreviation,conference,name))
 myCor <- cor(myData)
 corrplot(myCor, order = "FPC", method = "color", type = "lower", 
          tl.cex = 0.8, tl.col = rgb(0, 0, 0))
-
+'
 
 
 
